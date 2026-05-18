@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pau Casals — Joc Biogràfic</title>
+<style>
+:root{--paper:#fff7e4;--brown:#5a3b27;--green:#4f7a63;--red:#a54c43;--shadow:rgba(0,0,0,.2)}
+*{box-sizing:border-box}body{margin:0;overflow:hidden;width:100vw;height:100vh;background:radial-gradient(circle at top,rgba(255,255,255,.4),transparent 30%),linear-gradient(135deg,#f0dfba 0%,#d0ae77 40%,#6f4a33 100%);font-family:Georgia,serif;color:var(--brown)}
+#game{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}.screen{width:calc(100vw - 32px);height:calc(100vh - 32px);background:rgba(255,247,228,.95);border:6px solid var(--brown);border-radius:24px;box-shadow:0 20px 50px var(--shadow);display:none;flex-direction:column;overflow:hidden;position:relative}.screen.active{display:flex}.topbar{padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid rgba(90,59,39,.15)}.badge{background:var(--brown);color:white;padding:8px 16px;border-radius:999px;font-weight:bold}.content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:22px 30px 20px;text-align:center;gap:10px;overflow:hidden}h1{margin:0 0 10px;font-size:clamp(34px,4.6vw,58px)}h2{margin:0 0 8px;font-size:clamp(26px,3.5vw,40px)}p{max-width:850px;font-size:clamp(17px,1.8vw,24px);line-height:1.35;margin:6px 0}.button{margin-top:10px;padding:13px 24px;border:none;border-radius:999px;background:linear-gradient(180deg,#5d8f6e,#39624b);color:white;font-size:20px;font-weight:bold;cursor:pointer;box-shadow:0 6px 0 #294838}.button:active{transform:translateY(5px);box-shadow:0 3px 0 #294838}.button:disabled{opacity:.5;cursor:not-allowed}.story-card{width:min(880px,100%);background:var(--paper);border:4px solid rgba(90,59,39,.2);border-radius:22px;padding:18px;display:grid;grid-template-columns:1fr;gap:18px;align-items:center}.story-icon{display:none!important;width:125px;height:125px;border-radius:20px;background:linear-gradient(135deg,#f6d08f,#c28047);align-items:center;justify-content:center;font-size:58px}.cover-pau{position:absolute;right:-12px;bottom:-8px;width:min(50vw,620px);max-height:96%;object-fit:contain;filter:drop-shadow(0 14px 24px rgba(0,0,0,.28));z-index:1}.cover-content{align-items:flex-start!important;text-align:left!important;justify-content:flex-start!important;padding-left:70px!important;padding-top:64px!important;width:48%;position:relative;z-index:2}.cover-content h1{font-size:clamp(62px,7vw,92px);line-height:.95;margin:0 0 28px;color:#4b2b1b}.cover-content p{max-width:380px;font-size:clamp(22px,2.2vw,31px);line-height:1.22;text-align:center;margin:0 0 26px;color:#4b2b1b}.cover-content .button{font-size:25px;padding:16px 42px;margin-left:10px;background:linear-gradient(180deg,#5d9969,#2f7147);box-shadow:0 8px 0 #235138}.cover-content .button:hover{filter:brightness(1.05)}.cover-texture{position:absolute;inset:0;background:radial-gradient(circle at 32% 44%,rgba(255,247,228,.8),transparent 36%),linear-gradient(90deg,rgba(255,238,190,.38),transparent 55%);z-index:0;pointer-events:none}.cover-texture:after{content:'𝄞';position:absolute;left:-42px;bottom:80px;font-size:120px;color:rgba(90,59,39,.08);transform:rotate(-8deg)}.infancia-character,.life-character{position:absolute;left:38px;bottom:28px;width:auto;height:62vh;max-height:560px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.18));z-index:1}.with-life-character .content{padding-left:420px!important}.with-life-character .story-card{width:min(620px,100%)}.with-life-character .object-grid{width:min(700px,100%)}.infancia-panel{margin-left:420px;width:calc(100% - 470px);min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:46px}.infancia-text-box{background:rgba(255,247,228,.78);border:3px solid rgba(90,59,39,.16);border-radius:18px;padding:26px 34px;width:min(440px,100%);text-align:left;box-shadow:0 4px 12px rgba(90,59,39,.06)}.infancia-game-area{margin-left:420px;width:calc(100% - 470px);min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:24px}.story-card.child-card{display:block;width:auto;background:transparent;border:0;padding:0}.infancia-panel h2,.infancia-game-area h2{font-size:clamp(28px,3vw,40px);line-height:1.03;margin:0 0 18px;color:#4b2b1b;text-align:center}.infancia-panel p,.infancia-text-box p{font-size:clamp(18px,1.55vw,23px);line-height:1.38;margin:0;color:#4b2b1b}.infancia-panel .button:not(.top-continue),.infancia-game-area .button:not(.top-continue){position:static!important;left:auto!important;top:auto!important;transform:none!important;margin-top:16px!important;z-index:auto!important}.infancia-panel .button:not(.top-continue):active,.infancia-game-area .button:not(.top-continue):active{transform:translateY(4px)!important}.infancia-game-area .object-grid{width:min(620px,100%);grid-template-columns:repeat(4,1fr);gap:10px}.infancia-game-area .object{min-height:88px;border-radius:14px;background:rgba(255,247,228,.82)}.infancia-game-area .feedback{width:min(650px,100%);background:rgba(216,240,220,.78);border:2px solid rgba(79,122,99,.25);border-radius:12px;padding:8px 14px;color:#244a33;margin-top:8px}.story-text{text-align:left}.object-grid{width:min(900px,100%);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:10px}.object{background:var(--paper);border:4px solid rgba(90,59,39,.25);border-radius:18px;min-height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:.2s;font-size:16px;font-weight:bold;padding:8px}.object:hover{transform:translateY(-4px)}.object span:first-child{font-size:36px}.object img{width:54px;height:54px;object-fit:contain}.first-cello-preview{width:min(620px,100%);min-height:210px;margin-top:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;animation:floatCello 1.8s ease-in-out infinite}.first-cello-preview img{width:min(260px,48vw);max-height:230px;object-fit:contain;filter:drop-shadow(0 12px 18px rgba(0,0,0,.25))}.first-cello-preview span{font-size:20px;font-weight:bold;color:#4b2b1b}@keyframes floatCello{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.object span:first-child img{width:54px;height:54px;object-fit:contain;display:block}.object.done{background:#d8f0dc;border-color:var(--green)}.object.error{background:#f5d2ce;border-color:var(--red)}.feedback{min-height:30px;margin-top:6px;font-size:21px;font-weight:bold}.top-continue{position:absolute!important;top:10px!important;left:50%!important;transform:translateX(-50%)!important;margin-top:0!important;z-index:30!important;padding:10px 22px!important;font-size:18px!important;box-shadow:0 5px 0 #294838!important}.top-continue:active{transform:translateX(-50%) translateY(4px)!important}.hidden{display:none!important}
+.top-continue:not(.hidden),#fase2ContinueBtn:not(.hidden){display:inline-block!important;visibility:visible!important;opacity:1!important}@media(max-width:800px){.infancia-character{left:12px;width:120px}.infancia-panel,.infancia-game-area{margin-left:120px;width:calc(100% - 130px);padding-top:24px}.infancia-game-area .object-grid{grid-template-columns:1fr 1fr}.infancia-text-box{padding:16px 18px}.story-card{grid-template-columns:1fr;text-align:center;padding:18px}.story-text{text-align:center}.story-icon{margin:auto;width:110px;height:110px;font-size:52px}.object-grid{grid-template-columns:1fr 1fr;gap:10px}.object{min-height:96px;font-size:16px}.object span:first-child{font-size:38px}.content{padding:18px}}
+
+#scorePieces{grid-template-columns:1fr!important;width:min(620px,100%);gap:10px}
+#scorePieces .object{min-height:105px;padding:10px}
+#scorePieces .object img{width:min(520px,100%);height:78px;object-fit:contain}
+#scorePieces .object span:nth-child(2){display:none!important}
+
+.life-character{left:52px!important;bottom:28px!important;height:56vh!important;max-height:500px!important;}
+.final-pau{position:absolute;right:-12px;bottom:-8px;width:min(46vw,560px);max-height:94%;object-fit:contain;filter:drop-shadow(0 14px 24px rgba(0,0,0,.28));z-index:1;}
+#final_end .content{align-items:flex-start;text-align:left;justify-content:center;padding-left:90px;width:50%;position:relative;z-index:2;}
+#final_end h1{font-size:clamp(42px,5vw,72px);line-height:.95;color:#4b2b1b;white-space:normal;}
+#final_end h1 span{display:block;}
+#final_end p{font-size:clamp(22px,2.2vw,31px);color:#4b2b1b;text-align:left;}
+#final_end .life-character{display:none!important;}
+@media(max-width:800px){.life-character{left:42px!important;height:48vh!important;max-height:430px!important}.final-pau{right:-40px;width:min(70vw,420px);opacity:.9}#final_end .content{width:65%;padding-left:24px;}}
+
+
+/* Ajust específic: Pau Casals premis en la mateixa posició que la resta de personatges de fase */
+#final1_story .life-character,
+#final1_game .life-character{
+  left:52px!important;
+  bottom:28px!important;
+  height:56vh!important;
+  max-height:500px!important;
+  width:auto!important;
+  object-fit:contain!important;
+}
+#arcCanvas{touch-action:none;}
+</style>
+</head>
+<body>
+<div id="game">
+<section id="cover" class="screen active"><div class="cover-texture"></div><img src="images/pau_casals.png" alt="Pau Casals" class="cover-pau"><div class="content cover-content"><h1>Pau Casals</h1><p>Una aventura interactiva sobre la vida d’un dels músics més importants del món.</p><button class="button" id="startBtn">Començar</button></div></section>
+<section id="fase1_story" class="screen"><div class="topbar"><div class="badge">INFÀNCIA</div><div class="badge">FASE 1</div></div><img src="images/pau_casals_nen.png" alt="Pau Casals de petit" class="infancia-character"><div class="content"><div class="infancia-panel"><h2>Una casa plena de música</h2><div class="infancia-text-box"><p id="storyText"></p></div><button class="button" id="fase1StoryBtn">Continuar</button></div></div></section>
+<section id="fase1_game" class="screen"><div class="topbar"><div class="badge">INFÀNCIA</div><div class="badge">PROVA</div></div><img src="images/pau_casals_nen.png" alt="Pau Casals de petit" class="infancia-character"><div class="content"><div class="infancia-game-area"><h2>Quins objectes formen part de la vida d'en Pau?</h2><div class="object-grid" id="fase1Objects"></div><div class="feedback" id="feedback"></div><button id="continueBtn" class="button hidden">Continuar ➜</button></div></div></section>
+<section id="fase2_story" class="screen"><div class="topbar"><div class="badge">INFÀNCIA</div><div class="badge">FASE 2</div></div><img src="images/pau_casals_nen.png" alt="Pau Casals de petit" class="infancia-character"><div class="content"><div class="infancia-panel"><h2>Descobrint el so del violoncel</h2><div class="infancia-text-box"><p id="fase2StoryText"></p></div><button class="button" id="fase2StoryBtn">Continuar</button></div></div></section>
+<section id="fase2_game" class="screen"><div class="topbar"><div class="badge">INFÀNCIA</div><div class="badge">PROVA D'ESCOLTA</div></div><img src="images/pau_casals_nen.png" alt="Pau Casals de petit" class="infancia-character"><div class="content"><div class="infancia-game-area"><h2>Escolta i troba l'instrument</h2><p id="audioInstruction">Clica el botó per escoltar el primer so.</p><button id="playAudioBtn" class="button">▶ Escoltar</button><button id="fase2ContinueBtn" class="button hidden" type="button">Continuar ➜</button><div class="object-grid" id="instrumentObjects"></div><div class="feedback" id="audioFeedback"></div></div></div></section>
+<section id="fase3_story" class="screen"><div class="topbar"><div class="badge">INFÀNCIA</div><div class="badge">FASE 3</div></div><img src="images/pau_casals_nen.png" alt="Pau Casals de petit" class="infancia-character"><div class="content"><div class="infancia-panel"><h2>El primer violoncel</h2><div class="infancia-text-box"><p id="fase3StoryText"></p></div><button class="button" id="fase3StoryBtn">Continuar</button></div></div></section>
+<section id="fase3_game" class="screen"><div class="topbar"><div class="badge">INFÀNCIA</div><div class="badge">PROVA</div></div><img src="images/pau_casals_nen.png" alt="Pau Casals de petit" class="infancia-character"><div class="content"><div class="infancia-game-area"><h2>Ajuda en Pau a construir el seu primer violoncel</h2><p>Selecciona només els tres objectes que va utilitzar el seu pare.</p><div class="object-grid" id="fase3Objects"></div><div id="fase3VioloncelPreview" class="first-cello-preview hidden"><img src="images/violoncelprimer.png" alt="Primer violoncel"><span>El primer violoncel d'en Pau</span></div><div class="feedback" id="fase3Feedback"></div><button id="fase3ContinueBtn" class="button hidden">Continuar ➜</button></div></div></section>
+<section id="estudis1_story" class="screen"><div class="topbar"><div class="badge">ESTUDIS</div><div class="badge">FASE 1</div></div><div class="content"><h2>Arribada a Barcelona</h2><div class="story-card"><div class="story-icon">🏙️</div><div class="story-text"><p id="estudis1StoryText"></p></div></div><button class="button" id="estudis1StoryBtn">Continuar</button></div></section>
+<section id="estudis1_game" class="screen"><div class="topbar"><div class="badge">ESTUDIS</div><div class="badge">ORDENA LA HISTÒRIA</div></div><div class="content"><h2>Ordena els fets importants</h2><p>Clica les targetes en l’ordre correcte.</p><div class="object-grid" id="timelineCards"></div><div class="feedback" id="timelineFeedback"></div><button id="estudis1ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="estudis2_story" class="screen"><div class="topbar"><div class="badge">ESTUDIS</div><div class="badge">FASE 2</div></div><div class="content"><h2>Les Suites de Bach</h2><div class="story-card"><div class="story-icon">📜</div><div class="story-text"><p id="estudis2StoryText"></p></div></div><button class="button" id="estudis2StoryBtn">Continuar</button></div></section>
+<section id="estudis2_game" class="screen"><div class="topbar"><div class="badge">ESTUDIS</div><div class="badge">BOTIGA DE PARTITURES</div></div><div class="content"><h2>Troba les Suites</h2><p>Quines van ser les partitures que va trobar en Pau Casals?</p><div class="object-grid" id="bachCards"></div><div class="feedback" id="bachFeedback"></div><button id="estudis2ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="estudis3_story" class="screen"><div class="topbar"><div class="badge">ESTUDIS</div><div class="badge">FASE 3</div></div><div class="content"><h2>Estudis per Europa</h2><div class="story-card"><div class="story-icon">🗺️</div><div class="story-text"><p id="estudis3StoryText"></p></div></div><button class="button" id="estudis3StoryBtn">Continuar</button></div></section>
+<section id="estudis3_game" class="screen"><div class="topbar"><div class="badge">ESTUDIS</div><div class="badge">MAPA D'EUROPA</div></div><div class="content"><h2>Troba els llocs on va estudiar</h2><p>Clica només les ciutats on Pau Casals va estudiar música.</p><div class="object-grid" id="mapCities"></div><div class="feedback" id="mapFeedback"></div><button id="estudis3ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="carrera1_story" class="screen"><div class="topbar"><div class="badge">CARRERA MUSICAL</div><div class="badge">FASE 1</div></div><div class="content"><h2>De músic estudiant a estrella internacional</h2><div class="story-card"><div class="story-icon">🌍</div><div class="story-text"><p id="carrera1StoryText"></p></div></div><button class="button" id="carrera1StoryBtn">Continuar</button></div></section>
+<section id="carrera1_game" class="screen"><div class="topbar"><div class="badge">CARRERA MUSICAL</div><div class="badge">MOVIMENT DE L'ARC</div></div><div class="content"><h2>Segueix el moviment del violoncel</h2><p>Mantén el cursor dins del camí sense sortir-te’n.</p><canvas id="arcCanvas" width="900" height="320" style="background:#201712;border-radius:20px;border:4px solid #5a3b27;max-width:100%;"></canvas><div class="feedback" id="arcFeedback"></div><button class="button" id="retryArcBtn">Tornar-ho a provar</button><button id="carrera1ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="carrera2_story" class="screen"><div class="topbar"><div class="badge">CARRERA MUSICAL</div><div class="badge">FASE 2</div></div><div class="content"><h2>L'Orquestra Pau Casals</h2><div class="story-card"><div class="story-icon">🎼</div><div class="story-text"><p id="carrera2StoryText"></p></div></div><button class="button" id="carrera2StoryBtn">Continuar</button></div></section>
+<section id="carrera2_game" class="screen"><div class="topbar"><div class="badge">CARRERA MUSICAL</div><div class="badge">ORQUESTRA</div></div><div class="content"><h2>Organitza l'orquestra</h2><p>Arrossega cada instrument fins a la família correcta.</p><div class="object-grid" id="orchestraZones" style="grid-template-columns:repeat(3,1fr);"><div class="object orchestra-zone" data-zone="corda"><span><img src="images/corda02.png" alt="Corda"></span><span>CORDA</span><small>Instruments amb cordes i arc</small></div><div class="object orchestra-zone" data-zone="vent"><span><img src="images/vent.png" alt="Vent"></span><span>VENT</span><small>Instruments on cal bufar</small></div><div class="object orchestra-zone" data-zone="percussio"><span><img src="images/percussio.png" alt="Percussió"></span><span>PERCUSSIÓ</span><small>Instruments que es colpegen</small></div></div><div class="object-grid" id="orchestraItems"></div><div class="feedback" id="orchestraFeedback"></div><button id="carrera2ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="exili1_story" class="screen"><div class="topbar"><div class="badge">EXILI</div><div class="badge">FASE 1</div></div><div class="content"><h2>Una guerra molt trista</h2><div class="story-card"><div class="story-icon">🕊️</div><div class="story-text"><p id="exili1StoryText"></p></div></div><button class="button" id="exili1StoryBtn">Continuar</button></div></section>
+<section id="exili1_game" class="screen"><div class="topbar"><div class="badge">EXILI</div><div class="badge">REFUGIATS</div></div><div class="content"><h2>Ajuda els refugiats</h2><p>Selecciona només els objectes útils.</p><div class="object-grid" id="refugeeItems"></div><div class="feedback" id="refugeeFeedback"></div><button id="exili1ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="exili2_story" class="screen"><div class="topbar"><div class="badge">EXILI</div><div class="badge">FASE 2</div></div><div class="content"><h2>L’exili</h2><div class="story-card"><div class="story-icon">🧳</div><div class="story-text"><p id="exili2StoryText"></p></div></div><button class="button" id="exili2StoryBtn">Continuar</button></div></section>
+<section id="exili2_game" class="screen"><div class="topbar"><div class="badge">EXILI</div><div class="badge">ORDENA LA HISTÒRIA</div></div><div class="content"><h2>Ordena la història de l’exili</h2><p>Clica les targetes en l’ordre correcte.</p><div class="object-grid" id="exiliTimeline"></div><div class="feedback" id="exiliTimelineFeedback"></div><button id="exili2ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="exili3_story" class="screen"><div class="topbar"><div class="badge">EXILI</div><div class="badge">FASE 3</div></div><div class="content"><h2>El Cant dels Ocells</h2><div class="story-card"><div class="story-icon">🎼</div><div class="story-text"><p id="exili3StoryText"></p></div></div><button class="button" id="exili3StoryBtn">Continuar</button></div></section>
+<section id="exili3_game" class="screen"><div class="topbar"><div class="badge">EXILI</div><div class="badge">PARTITURA</div></div><div class="content"><h2>Reconstrueix la partitura</h2><p>Ordena correctament els fragments d’El Cant dels Ocells.</p><div class="object-grid" id="scorePieces"></div><div class="feedback" id="scoreFeedback"></div><audio id="cantOcellsAudio" src="audios/elcantdelsocells.mp3"></audio><button id="exili3ContinueBtn" class="button hidden">Continuar ➜</button></div></section>
+<section id="final1_story" class="screen"><div class="topbar"><div class="badge">RECONEIXEMENTS</div><div class="badge">FASE FINAL</div></div><div class="content"><h2>I am a Catalan</h2><div class="story-card"><div class="story-icon">🌍</div><div class="story-text"><p id="final1StoryText"></p></div></div><button class="button" id="final1StoryBtn">Continuar</button></div></section>
+<section id="final1_game" class="screen"><div class="topbar"><div class="badge">RECONEIXEMENTS</div><div class="badge">DISCURS</div></div><div class="content"><h2>Reconstrueix el discurs</h2><p>Ordena les paraules correctament.</p><div id="speechWords" class="object-grid"></div><div class="feedback" id="speechFeedback"></div><button id="speechResetBtn" class="button hidden">Tornar a intentar la frase</button><button id="finalContinueBtn" class="button hidden">Finalitzar</button></div></section>
+<section id="final_end" class="screen"><img src="images/pau_casals.png" alt="Pau Casals" class="final-pau"><div class="content"><h1><span>I AM A</span><span>CATALAN</span></h1><p>Gràcies per descobrir la vida de Pau Casals.</p><p>🎻 🕊️ 🌍</p></div></section>
+</div>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const data={fase1:["En Pau Casals va néixer al Vendrell l’any 1876, en una família humil però molt vinculada a la música.","El seu pare era músic i organista de l’església. A casa seva sempre hi havia instruments, cançons i música.","Des de molt petit, en Pau va començar a interessar-se pels instruments i va aprendre a tocar-ne diversos.","La música es va convertir molt aviat en una part molt important de la seva vida."],fase2:["Quan era petit, en Pau Casals va escoltar per primera vegada el so d’un violoncel.","Aquell instrument tenia un so profund i emocionant que el va fascinar immediatament.","Des d’aquell moment, en Pau va saber que volia aprendre a tocar el violoncel.","Aquell descobriment canviaria per sempre la seva vida."],fase3:["En Pau volia aprendre a tocar el violoncel, però la seva família no tenia diners per comprar-ne un de veritat.","El seu pare, veient la il·lusió del seu fill, va decidir construir-li un instrument casolà.","Va fer servir una carbassa, un pal i una corda per crear aquell primer violoncel.","Gràcies a aquest instrument, en Pau va començar a fer els seus primers passos com a músic."],estudis1:["Quan tenia onze anys, Pau Casals va deixar el Vendrell per anar a estudiar música a Barcelona.","Va entrar a l’Escola Municipal de Música, on va començar a estudiar violoncel de manera més professional.","A Barcelona també treballava tocant música en cafès i petits locals per ajudar la seva família.","Aquella etapa va ser molt important perquè Pau va començar a convertir la música en la seva vida."],estudis2:["Un dia, mentre visitava una botiga de música de Barcelona, Pau Casals va trobar unes partitures molt especials.","Eren les Suites per a violoncel de Johann Sebastian Bach.","Aquelles peces havien estat gairebé oblidades durant molts anys.","Pau Casals va començar a estudiar-les i, amb el temps, les convertiria en algunes de les obres més famoses del violoncel."],estudis3:["El talent de Pau Casals va començar a ser conegut fora de Catalunya.","Gràcies al suport de la reina Maria Cristina, va poder continuar estudiant a Madrid.","Més endavant també va viatjar a Brussel·les i París per continuar la seva formació musical.","Aquests viatges el van ajudar a convertir-se en un músic cada vegada més important."],carrera1:["Després d’anys estudiant música, Pau Casals va començar a actuar en escenaris cada vegada més importants.","L’any 1899 va debutar a París amb l’orquestra Lamoureux, un dels moments més importants de la seva carrera.","El públic va quedar impressionat pel seu talent i la seva manera tan especial de tocar el violoncel.","Pau Casals no tocava com la resta de músics de la seva època. Els seus moviments eren més naturals i expressius.","Va revolucionar la manera de tocar el violoncel, donant més llibertat i emoció a la música.","La seva fama va créixer ràpidament i va començar a fer concerts en molts països del món.","Moltes persones consideraven Pau Casals el millor violoncel·lista del seu temps.","A més de tocar el violoncel, també va començar a dirigir concerts i a treballar amb grans músics internacionals.","L’any 1919 va fundar l’Orquestra Pau Casals a Barcelona, amb la idea de portar la millor música possible al públic."],carrera2:["L’Orquestra Pau Casals es va convertir en una de les més importants d’Europa.","Perquè una orquestra soni bé, cada grup d’instruments ha d’estar col·locat al lloc correcte.","Els instruments de corda, vent i percussió treballen junts per crear la música.","Ara ajudaràs Pau Casals a preparar la seva orquestra."],exili1:["Amb el pas dels anys, Europa va viure moments molt difícils a causa de les guerres.","Pau Casals creia que la música havia de servir per unir les persones i defensar la pau.","Per això, va destinar tots els seus diners a ajudar les persones refugiades, que havien perdut casa seva i necessitaven menjar, roba i suport.","Moltes persones admiraven Pau Casals no només per la seva música, sinó també pels seus valors humans."],exili2:["Després de la Guerra Civil espanyola, Pau Casals va decidir marxar a l’exili.","Va instal·lar-se a Prada de Conflent, un poble situat al sud de França.","Pau Casals no volia tornar a Espanya mentre existís la dictadura franquista.","Va passar més de 35 anys vivint fora de Catalunya."],exili3:["Durant molts anys, Pau Casals va interpretar El Cant dels Ocells en concerts arreu del món.","Aquella cançó tradicional catalana es va convertir en un símbol de pau i esperança.","Quan Pau Casals tocava aquesta melodia, moltes persones s’emocionaven.","Encara avui, aquesta peça continua recordant el seu missatge de pau."],final1:["L’any 1971, Pau Casals va ser convidat a parlar davant de les Nacions Unides.","El món admirava tant la seva música com el seu missatge de pau i llibertat.","Durant aquell discurs, Pau Casals va parlar de Catalunya i de la importància de la pau.","Aquelles paraules es van convertir en un dels moments més recordats de la seva vida."]};
+const items={fase1:[[{img:"piano"},"Piano",true],[{img:"violi"},"Violí",true],[{img:"partitura"},"Partitures",true],[{img:"orgue"},"Orgue",true],[{img:"pilota"},"Pilota",false],[{img:"televisio"},"Televisió",false],[{img:"cotxe"},"Cotxe",false],[{img:"bicicleta"},"Bicicleta",false]],audio:[{file:"dulce.mp3",answer:"Flauta dolça"},{file:"guitarraclasica.mp3",answer:"Guitarra clàssica"},{file:"harpa.mp3",answer:"Arpa"},{file:"piano.mp3",answer:"Piano"},{file:"violoncello.mp3",answer:"Violoncel"}],instruments:[[{img:"flauta"},"Flauta dolça"],[{img:"guitarra"},"Guitarra clàssica"],[{img:"arpa"},"Arpa"],[{img:"piano"},"Piano"],[{img:"violoncel"},"Violoncel"]],fase3:[[{img:"carbassa"},"Carbassa",true],[{img:"pal"},"Pal",true],[{img:"corda"},"Corda",true],[{img:"tambor"},"Tambor",false],[{img:"flauta"},"Flauta",false],[{img:"pedra"},"Pedra",false],[{img:"tassa"},"Tassa",false],[{img:"violoncel"},"Violoncel",false]],bach:[["📜","Johann Sebastian Bach",true],["📜","Wolfgang Amadeus Mozart",false],["📜","Ludwig van Beethoven",false],["📜","Frédéric Chopin",false],["📜","Antonio Vivaldi",false],["📜","Piotr Ilitx Txaikovski",false]],map:[["📍","Barcelona",true],["📍","Madrid",true],["📍","Brussel·les",true],["📍","París",true],["📍","Roma",false],["📍","Londres",false],["📍","Berlín",false],["📍","Lisboa",false]],refugee:[[{img:"Manta"},"Manta",true],[{img:"Pa"},"Pa",true],[{img:"Medicina"},"Medicina",true],[{img:"Aigua"},"Aigua",true],[{img:"Pilota"},"Pilota",false],[{img:"Quadre"},"Quadre",false],[{img:"Rellotge"},"Rellotge",false],[{img:"Sofà"},"Sofà",false]],orchestra:[[{img:"violi"},"Violí","corda"],[{img:"violoncel"},"Violoncel","corda"],[{img:"trompeta"},"Trompeta","vent"],[{img:"flauta02"},"Flauta","vent"],[{img:"clarinet"},"Clarinet","vent"],[{img:"tambor"},"Tambor","percussio"],[{img:"timbal"},"Timbal","percussio"],[{img:"plats"},"Plats","percussio"]]};
+const timelines={estudis1:[["🏡","Pau marxa del Vendrell"],["🏫","Entra a l’Escola Municipal de Música"],["🎻","Estudia violoncel de manera professional"],["🎶","Toca música a Barcelona per ajudar la família"]],exili2:[["⚔️","Comença la Guerra Civil"],["🚶","Pau Casals marxa a l’exili"],["📍","Va a viure a Prada de Conflent"],["🕊️","Continua defensant la pau amb la música"]],score:[[{img:"01"},"Fragment 1"],[{img:"02"},"Fragment 2"],[{img:"03"},"Fragment 3"]]};
+const speechSolutions=["I am a Catalan","La música uneix les persones","La pau és molt important","Catalunya és la meva terra"];
+const speechWords=[["Catalan","a","am","I"],["persones","uneix","música","La","les"],["important","molt","és","pau","La"],["terra","la","meva","és","Catalunya"]];
+let pageIndex={},audioIndex=0,audioPlayed=false,playingAudio=null,arcId=null,arcAudio=null;
+function show(id){if(arcId){cancelAnimationFrame(arcId);arcId=null}if(arcAudio){arcAudio.pause();arcAudio.currentTime=0;arcAudio=null}document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));const screen=$(id);if(screen)screen.classList.add("active");else console.error("Screen not found",id)}
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5)}
+function shuffleNotOriginal(arr){
+  if(arr.length < 2) return [...arr];
+  let shuffled = shuffle(arr);
+  let sameOrder = shuffled.every((item,index)=>item[2]===index);
+  let tries = 0;
+  while(sameOrder && tries < 20){
+    shuffled = shuffle(arr);
+    sameOrder = shuffled.every((item,index)=>item[2]===index);
+    tries++;
+  }
+  if(sameOrder){
+    const first = shuffled.shift();
+    shuffled.push(first);
+  }
+  return shuffled;
+}
+function obj(icon,label,small=""){const d=document.createElement("div");d.className="object";const iconHtml=(icon&&typeof icon==="object"&&icon.img)?`<img src="images/${icon.img}.png" alt="${label}">`:icon;d.innerHTML=`<span>${iconHtml}</span><span>${label}</span>${small?`<small>${small}</small>`:""}`;return d}
+function tempErr(el,fb,msg){fb.textContent=msg;el.classList.add("error");setTimeout(()=>el.classList.remove("error"),450)}
+function hide(btn){if(btn){btn.classList.add("hidden");btn.style.visibility="";btn.disabled=false}}function reveal(btn){if(btn){btn.classList.remove("hidden");btn.style.display="inline-block";btn.style.visibility="visible";btn.disabled=false}}
+function startStory(key,textId){pageIndex[key]=0;$(textId).textContent=data[key][0];show(`${key}_story`)}
+function nextStory(key,textId,endFn){pageIndex[key]++;if(pageIndex[key]<data[key].length){$(textId).textContent=data[key][pageIndex[key]]}else{endFn()}}
+function pickGame(containerId,fbId,btnId,arr,needed,ok,finish,wrong,screenId,onFinish){const c=$(containerId),fb=$(fbId),btn=$(btnId);c.innerHTML="";fb.textContent="";hide(btn);let count=0;shuffle(arr).forEach(it=>{const el=obj(it[0],it[1]);el.onclick=()=>{if(it[2]){if(el.classList.contains("done"))return;el.classList.add("done");count++;fb.textContent=ok;if(count===needed){fb.textContent=finish;if(onFinish)onFinish();reveal(btn)}}else{tempErr(el,fb,wrong)}};c.appendChild(el)});show(screenId)}
+function timelineGame(containerId,fbId,btnId,arr,finish,screenId){const c=$(containerId),fb=$(fbId),btn=$(btnId);c.innerHTML="";hide(btn);let step=0;fb.textContent="Busca el primer fet.";shuffleNotOriginal(arr.map((x,i)=>[x[0],x[1],i])).forEach(it=>{const el=obj(it[0],it[1]);el.onclick=()=>{if(el.classList.contains("done"))return;if(it[2]===step){el.classList.add("done");step++;if(step===arr.length){fb.textContent=finish;reveal(btn)}else{fb.textContent=`Ara busca el fet número ${step+1}.`}}else{tempErr(el,fb,"Aquest encara no toca.")}};c.appendChild(el)});show(screenId)}
+function stopAudio(){if(playingAudio){playingAudio.pause();playingAudio.currentTime=0;playingAudio=null}}
+function startAudioGame(){audioIndex=0;audioPlayed=false;stopAudio();$("audioFeedback").textContent="";$("audioInstruction").textContent=`So 1 de ${items.audio.length}. Clica escoltar.`;$("playAudioBtn").disabled=false;hide($("fase2ContinueBtn"));renderInstruments();show("fase2_game")}
+function renderInstruments(){const c=$("instrumentObjects");c.innerHTML="";shuffle(items.instruments).forEach(it=>{const el=obj(it[0],it[1]);el.onclick=()=>checkAudio(it[1],el);c.appendChild(el)})}
+function playAudio(){const round=items.audio[audioIndex];if(!round){
+    $("audioFeedback").textContent="La prova ja està completada.";
+    $("playAudioBtn").disabled=true;
+    reveal($("fase2ContinueBtn"));
+      $("fase2ContinueBtn").scrollIntoView({block:"nearest"});
+    return;
+  }stopAudio();playingAudio=new Audio("audios/"+round.file);audioPlayed=true;$("audioFeedback").textContent="";playingAudio.play().catch(()=>{$("audioFeedback").textContent="No s’ha pogut reproduir l’àudio. Revisa la carpeta audios."})}
+function checkAudio(name,el){const round=items.audio[audioIndex];if(!round){
+    $("audioFeedback").textContent="Aquesta prova ja està completada.";
+    reveal($("fase2ContinueBtn"));
+    return;
+  }if(!audioPlayed){$("audioFeedback").textContent="Primer has d’escoltar el so.";return}if(name===round.answer){el.classList.add("done");stopAudio();audioPlayed=false;audioIndex++;if(audioIndex>=items.audio.length){
+        $("audioFeedback").textContent="Aquest és el so que va enamorar Pau Casals.";
+        $("audioInstruction").textContent="Has completat tots els sons.";
+        $("playAudioBtn").disabled=true;
+        const btn=$("fase2ContinueBtn");
+        btn.classList.remove("hidden");
+        btn.style.display="inline-block";
+        btn.style.visibility="visible";
+        btn.disabled=false;
+      }else{$("audioFeedback").textContent="Molt bé! Escolta el següent so.";$("audioInstruction").textContent=`So ${audioIndex+1} de ${items.audio.length}. Clica escoltar.`;renderInstruments()}}else{tempErr(el,$("audioFeedback"),"Aquest no és l’instrument que sona. Torna-ho a provar!")}}
+function startFirstCelloGame(){const preview=$("fase3VioloncelPreview");const objects=$("fase3Objects");if(preview)preview.classList.add("hidden");if(objects)objects.classList.remove("hidden");pickGame("fase3Objects","fase3Feedback","fase3ContinueBtn",items.fase3,3,"Molt bé! Aquest objecte forma part del primer violoncel.","Fantàstic! Ara pots veure el primer violoncel que va construir el seu pare.","Aquest objecte no servia per construir el primer violoncel. Torna-ho a provar!","fase3_game",()=>{const preview=$("fase3VioloncelPreview");const objects=$("fase3Objects");if(objects)objects.classList.add("hidden");if(preview)preview.classList.remove("hidden")})}
+function startBach(){const c=$("bachCards"),fb=$("bachFeedback"),btn=$("estudis2ContinueBtn");c.innerHTML="";fb.textContent="";hide(btn);shuffle(items.bach).forEach(it=>{const el=obj(it[0],it[1]);el.onclick=()=>{if(it[2]){el.classList.add("done");fb.textContent="Exacte! Aquestes són les partitures de Bach que van marcar Pau Casals.";reveal(btn)}else{tempErr(el,fb,"Aquesta partitura és d’un altre compositor. Continua buscant Bach!")}};c.appendChild(el)});show("estudis2_game")}
+function startOrchestra(){
+  const c=$("orchestraItems"),fb=$("orchestraFeedback"),btn=$("carrera2ContinueBtn");
+  c.innerHTML="";
+  hide(btn);
+  let done=0;
+  fb.textContent="Arrossega cada instrument fins a la zona correcta.";
+
+  document.querySelectorAll(".orchestra-zone").forEach(zone=>{
+    zone.classList.remove("done","error");
+    zone.ondragover=e=>e.preventDefault();
+    zone.ondrop=e=>{
+      e.preventDefault();
+      const instrumentZone=e.dataTransfer.getData("zone");
+      const instrumentName=e.dataTransfer.getData("name");
+      const instrumentId=e.dataTransfer.getData("id");
+      const dragged=$(instrumentId);
+
+      if(instrumentZone===zone.dataset.zone){
+        if(dragged && !dragged.classList.contains("done")){
+          dragged.classList.add("done");
+          dragged.draggable=false;
+          done++;
+          fb.textContent=`Correcte! ${instrumentName} va a ${zone.querySelector('span:nth-child(2)').textContent}.`;
+          if(done===items.orchestra.length){
+            fb.textContent="L’Orquestra Pau Casals ja està preparada per començar el concert.";
+            reveal(btn);
+          }
+        }
+      }else{
+        zone.classList.add("error");
+        fb.textContent=`${instrumentName} no va en aquesta família. Torna-ho a provar!`;
+        setTimeout(()=>zone.classList.remove("error"),450);
+      }
+    };
+  });
+
+  shuffle(items.orchestra).forEach((it,index)=>{
+    const el=obj(it[0],it[1]);
+    el.id=`orch_${index}_${Date.now()}`;
+    el.draggable=true;
+    el.ondragstart=e=>{
+      e.dataTransfer.setData("zone",it[2]);
+      e.dataTransfer.setData("name",it[1]);
+      e.dataTransfer.setData("id",el.id);
+    };
+    c.appendChild(el);
+  });
+  show("carrera2_game");
+}
+function startArc(){
+  show("carrera1_game");
+
+  if(arcId) cancelAnimationFrame(arcId);
+
+  const canvas = $("arcCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const introCountdown = 5000;
+  let gameDuration = 10000;
+  const roadWidth = 95;
+
+  arcAudio = new Audio("audios/ocells.mp3");
+  arcAudio.preload = "auto";
+  arcAudio.addEventListener("loadedmetadata",()=>{
+    if(Number.isFinite(arcAudio.duration) && arcAudio.duration > 0){
+      gameDuration = arcAudio.duration * 1000;
+    }
+  });
+
+  let mx = canvas.width * 0.18;
+  let my = canvas.height / 2;
+
+  let gameStarted = false;
+  let gameFailed = false;
+
+  hide($("carrera1ContinueBtn"));
+
+  $("retryArcBtn").style.display = "none";
+
+  canvas.onpointermove = e => {
+    const r = canvas.getBoundingClientRect();
+
+    mx = (e.clientX - r.left) * (canvas.width / r.width);
+    my = (e.clientY - r.top) * (canvas.height / r.height);
+  };
+
+  function centerY(x,time){
+    const move = time * 0.08;
+
+    return canvas.height/2
+      + Math.sin((x + move) * 0.010) * 40
+      + Math.sin((x + move*1.5) * 0.018 + 1.5) * 24
+      + Math.sin((x - move*0.7) * 0.006 + 3.1) * 18;
+  }
+
+  let countdownStart = performance.now();
+
+  function drawCountdown(now){
+
+    const elapsed = now - countdownStart;
+    const remaining = Math.ceil((introCountdown - elapsed)/1000);
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "#201712";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = "#e6d3a3";
+    ctx.lineWidth = 6;
+
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height/2 - roadWidth/2);
+    ctx.lineTo(canvas.width, canvas.height/2 - roadWidth/2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height/2 + roadWidth/2);
+    ctx.lineTo(canvas.width, canvas.height/2 + roadWidth/2);
+    ctx.stroke();
+
+    ctx.font = "48px Georgia";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#f7e7b4";
+
+    if(remaining > 0){
+      ctx.fillText(remaining, canvas.width/2, 80);
+      $("arcFeedback").textContent =
+        "Prepara't! Col·loca la clau de fa dins del recorregut.";
+    } else {
+      ctx.fillText("GO!", canvas.width/2, 80);
+    }
+
+    ctx.font = "42px serif";
+    ctx.fillText("𝄢", mx, my + 14);
+
+    if(elapsed >= introCountdown){
+      gameStarted = true;
+      gameStartTime = performance.now();
+      if(arcAudio){
+        arcAudio.currentTime = 0;
+        if(Number.isFinite(arcAudio.duration) && arcAudio.duration > 0){
+          gameDuration = arcAudio.duration * 1000;
+        }
+        arcAudio.play().catch(()=>{
+          $("arcFeedback").textContent = "No s’ha pogut reproduir l’àudio. Revisa la carpeta audios.";
+        });
+      }
+      arcId = requestAnimationFrame(drawGame);
+      return;
+    }
+
+    arcId = requestAnimationFrame(drawCountdown);
+  }
+
+  let gameStartTime = 0;
+
+  function drawGame(now){
+
+    const elapsed = now - gameStartTime;
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "#201712";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = "#e6d3a3";
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+
+    ctx.beginPath();
+
+    for(let x=0; x<canvas.width; x++){
+
+      const y = centerY(x,elapsed) - roadWidth/2;
+
+      if(x===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+
+    ctx.stroke();
+
+    ctx.beginPath();
+
+    for(let x=0; x<canvas.width; x++){
+
+      const y = centerY(x,elapsed) + roadWidth/2;
+
+      if(x===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+
+    ctx.stroke();
+
+    const cy = centerY(mx,elapsed);
+
+    const inside = Math.abs(my - cy) <= roadWidth/2;
+
+    ctx.font = "42px serif";
+    ctx.textAlign = "center";
+    ctx.fillStyle = inside ? "#f7e7b4" : "#c85b50";
+
+    ctx.fillText("𝄢", mx, my + 14);
+
+    ctx.font = "bold 24px Georgia";
+    ctx.fillStyle = "#f7e7b4";
+    ctx.textAlign = "left";
+
+    ctx.fillText(
+      `${Math.max(0,Math.ceil((gameDuration-elapsed)/1000))}s`,
+      20,
+      36
+    );
+
+    $("arcFeedback").textContent =
+      "Segueix el moviment sense sortir-te'n.";
+
+    if(!inside){
+
+      gameFailed = true;
+    }
+
+    if(gameFailed){
+
+      $("arcFeedback").textContent =
+        "Has sortit del recorregut!";
+
+      $("retryArcBtn").style.display = "inline-block";
+
+      if(arcAudio){arcAudio.pause();arcAudio.currentTime=0;}
+
+      arcId = null;
+      return;
+    }
+
+    if(elapsed >= gameDuration){
+
+      $("arcFeedback").textContent =
+        "Fantàstic! Has dominat el moviment de l'arc.";
+
+      reveal($("carrera1ContinueBtn"));
+
+      if(arcAudio){arcAudio.pause();arcAudio.currentTime=0;}
+
+      arcId = null;
+      return;
+    }
+
+    arcId = requestAnimationFrame(drawGame);
+  }
+
+  arcId = requestAnimationFrame(drawCountdown);
+}
+
+function startScore(){const c=$("scorePieces"),fb=$("scoreFeedback"),btn=$("exili3ContinueBtn");c.innerHTML="";hide(btn);let step=0;fb.textContent="Ordena les peces de la partitura.";shuffleNotOriginal(timelines.score.map((x,i)=>[x[0],x[1],i])).forEach(it=>{const el=obj(it[0],it[1]);el.onclick=()=>{if(el.classList.contains("done"))return;if(it[2]===step){el.classList.add("done");step++;if(step===timelines.score.length){fb.textContent="Fantàstic! La melodia està completa.";const a=$("cantOcellsAudio");if(a){a.currentTime=0;a.play().catch(()=>{})}reveal(btn)}}else{tempErr(el,fb,"Aquest fragment encara no va aquí.")}};c.appendChild(el)});show("exili3_game")}
+function startSpeech(){let phrase=0,built=[];hide($("finalContinueBtn"));hide($("speechResetBtn"));function render(){const c=$("speechWords");c.innerHTML="";built=[];$("speechFeedback").textContent=`Frase ${phrase+1} de ${speechWords.length}`;shuffle(speechWords[phrase]).forEach(w=>{const el=obj("📝",w);el.onclick=()=>{if(el.style.visibility==="hidden")return;built.push(w);el.style.visibility="hidden";const current=built.join(" "),target=speechSolutions[phrase];$("speechFeedback").textContent=current;if(!target.startsWith(current)){$("speechFeedback").textContent="L’ordre no és correcte. Torna a intentar aquesta frase.";reveal($("speechResetBtn"));return}if(current===target){phrase++;if(phrase>=speechWords.length){$("speechFeedback").textContent="I AM A CATALAN";reveal($("finalContinueBtn"));hide($("speechResetBtn"))}else{render()}}};c.appendChild(el)})}render();show("final1_game")}
+function setupStageCharacters(){
+  const stageMap={
+    estudis:"pau_casals_jove.png",
+    carrera:"pau_casals_adult.png",
+    exili:"pau_casals_gran.png",
+    final:"pau_casals_premis.png"
+  };
+  Object.entries(stageMap).forEach(([prefix,file])=>{
+    document.querySelectorAll(`section[id^="${prefix}"]`).forEach(section=>{
+      if(section.id==="final_end") return;
+      if(section.querySelector(".life-character")) return;
+      section.classList.add("with-life-character");
+      const img=document.createElement("img");
+      img.src=`images/${file}`;
+      img.alt="Pau Casals";
+      img.className="life-character";
+      section.insertBefore(img,section.firstChild.nextSibling);
+    });
+  });
+}
+
+function setupTopContinueButtons(){
+  [
+    "continueBtn","fase2ContinueBtn","fase3ContinueBtn",
+    "estudis1ContinueBtn","estudis2ContinueBtn","estudis3ContinueBtn",
+    "carrera1ContinueBtn","carrera2ContinueBtn",
+    "exili1ContinueBtn","exili2ContinueBtn","exili3ContinueBtn",
+    "finalContinueBtn"
+  ].forEach(id=>{
+    const btn=$(id);
+    if(btn) btn.classList.add("top-continue");
+  });
+}
+
+function initButtons(){
+$("startBtn").onclick=()=>startStory("fase1","storyText");
+$("fase1StoryBtn").onclick=()=>nextStory("fase1","storyText",()=>show("fase1_game"));
+$("continueBtn").onclick=()=>startStory("fase2","fase2StoryText");
+$("fase2StoryBtn").onclick=()=>nextStory("fase2","fase2StoryText",startAudioGame);
+$("playAudioBtn").onclick=playAudio;
+$("fase2ContinueBtn").onclick=()=>{
+  $("fase2ContinueBtn").classList.remove("hidden");
+  startStory("fase3","fase3StoryText");
+};
+$("fase3StoryBtn").onclick=()=>nextStory("fase3","fase3StoryText",startFirstCelloGame);
+$("fase3ContinueBtn").onclick=()=>{
+  reveal($("fase3ContinueBtn"));
+  startStory("estudis1","estudis1StoryText");
+};
+$("estudis1StoryBtn").onclick=()=>nextStory("estudis1","estudis1StoryText",()=>timelineGame("timelineCards","timelineFeedback","estudis1ContinueBtn",timelines.estudis1,"Perfecte! Has ordenat l’arribada de Pau Casals a Barcelona.","estudis1_game"));
+$("estudis1ContinueBtn").onclick=()=>startStory("estudis2","estudis2StoryText");
+$("estudis2StoryBtn").onclick=()=>nextStory("estudis2","estudis2StoryText",startBach);
+$("estudis2ContinueBtn").onclick=()=>startStory("estudis3","estudis3StoryText");
+$("estudis3StoryBtn").onclick=()=>nextStory("estudis3","estudis3StoryText",()=>pickGame("mapCities","mapFeedback","estudis3ContinueBtn",items.map,4,"Molt bé! Aquesta ciutat forma part dels estudis de Pau Casals.","Fantàstic! Has completat el viatge d’estudis de Pau Casals per Europa.","Aquesta ciutat no forma part dels llocs on va estudiar Pau Casals.","estudis3_game"));
+$("estudis3ContinueBtn").onclick=()=>startStory("carrera1","carrera1StoryText");
+$("carrera1StoryBtn").onclick=()=>nextStory("carrera1","carrera1StoryText",startArc);
+$("retryArcBtn").onclick=startArc;
+$("carrera1ContinueBtn").onclick=()=>startStory("carrera2","carrera2StoryText");
+$("carrera2StoryBtn").onclick=()=>nextStory("carrera2","carrera2StoryText",startOrchestra);
+$("carrera2ContinueBtn").onclick=()=>startStory("exili1","exili1StoryText");
+$("exili1StoryBtn").onclick=()=>nextStory("exili1","exili1StoryText",()=>pickGame("refugeeItems","refugeeFeedback","exili1ContinueBtn",items.refugee,4,"Aquest objecte pot ajudar els refugiats.","Has ajudat correctament els refugiats.","Aquest no és un objecte prioritari.","exili1_game"));
+$("exili1ContinueBtn").onclick=()=>startStory("exili2","exili2StoryText");
+$("exili2StoryBtn").onclick=()=>nextStory("exili2","exili2StoryText",()=>timelineGame("exiliTimeline","exiliTimelineFeedback","exili2ContinueBtn",timelines.exili2,"Has reconstruït la història de l’exili.","exili2_game"));
+$("exili2ContinueBtn").onclick=()=>startStory("exili3","exili3StoryText");
+$("exili3StoryBtn").onclick=()=>nextStory("exili3","exili3StoryText",startScore);
+$("exili3ContinueBtn").onclick=()=>startStory("final1","final1StoryText");
+$("final1StoryBtn").onclick=()=>nextStory("final1","final1StoryText",startSpeech);
+$("speechResetBtn").onclick=startSpeech;
+$("finalContinueBtn").onclick=()=>show("final_end");
+}
+function ensureContinueButtons(){
+  const completedAudio = $("audioInstruction") && $("audioInstruction").textContent.includes("Has completat tots els sons");
+  if(completedAudio){ reveal($("fase2ContinueBtn")); }
+
+  const completedCarbassa = $("fase3Feedback") && $("fase3Feedback").textContent.includes("Fantàstic! Ara en Pau ja pot començar a tocar");
+  if(completedCarbassa){ reveal($("fase3ContinueBtn")); }
+
+  const completedButtons = [
+    ["feedback","continueBtn","Fantàstic"],
+    ["fase3Feedback","fase3ContinueBtn","Fantàstic"],
+    ["timelineFeedback","estudis1ContinueBtn","Perfecte"],
+    ["bachFeedback","estudis2ContinueBtn","Exacte"],
+    ["mapFeedback","estudis3ContinueBtn","Fantàstic"],
+    ["arcFeedback","carrera1ContinueBtn","Fantàstic"],
+    ["orchestraFeedback","carrera2ContinueBtn","preparada"],
+    ["refugeeFeedback","exili1ContinueBtn","Has ajudat"],
+    ["exiliTimelineFeedback","exili2ContinueBtn","Has reconstruït"],
+    ["scoreFeedback","exili3ContinueBtn","Fantàstic"],
+    ["speechFeedback","finalContinueBtn","I AM A CATALAN"]
+  ];
+
+  completedButtons.forEach(([feedbackId,buttonId,text])=>{
+    const fb=$(feedbackId);
+    if(fb && fb.textContent.includes(text)) reveal($(buttonId));
+  });
+}
+setInterval(ensureContinueButtons,500);
+
+function runTests(){["startBtn","continueBtn","fase2ContinueBtn","fase3ContinueBtn","estudis1ContinueBtn","estudis2ContinueBtn","estudis3ContinueBtn","carrera1ContinueBtn","carrera2ContinueBtn","exili1ContinueBtn","exili2ContinueBtn","exili3ContinueBtn","finalContinueBtn"].forEach(id=>console.assert($(id),`Falta botó ${id}`));console.assert(items.audio.at(-1).file==="violoncello.mp3","El violoncel ha de sonar últim");console.assert(data.fase1.length===4,"Fase 1 ha de tenir 4 paràgrafs");console.assert(typeof timelineGame==="function","timelineGame ha d’existir sense errors de sintaxi")}
+function boot(){setupStageCharacters();setupTopContinueButtons();initButtons();$("storyText").textContent=data.fase1[0];pickGame("fase1Objects","feedback","continueBtn",items.fase1,4,"Molt bé!","Fantàstic! En Pau va créixer envoltat de música.","Aquest objecte no forma part del món musical d’en Pau.","fase1_game");show("cover");runTests()}
+window.addEventListener("DOMContentLoaded",boot);
+</script>
+</body>
+</html>
